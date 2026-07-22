@@ -31,9 +31,14 @@ export default function Register() {
 
       navigate("/");
     } catch (err) {
-      console.error(err);
-      setError("Registration failed.");
-    }
+
+  console.log("REGISTER ERROR:", err.response?.data);
+
+  setError(
+    JSON.stringify(err.response?.data)
+  );
+
+}
   };
 
   return (

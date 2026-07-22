@@ -3,6 +3,8 @@ from .views import VehicleListCreateView, VehicleDetailView
 
 from .views import PurchaseVehicleView,RestockVehicleView, VehicleSearchView
 
+from .views import MyPurchaseHistoryView
+
 urlpatterns = [
     path("", VehicleListCreateView.as_view(), name="vehicle-list"),
     path("<int:pk>/", VehicleDetailView.as_view(), name="vehicle-detail"),
@@ -21,5 +23,9 @@ urlpatterns = [
         "search/",
         VehicleSearchView.as_view(),
         name="vehicle-search"
+    ),
+    path(
+    "my-purchases/",
+    MyPurchaseHistoryView.as_view()
     ),
 ]

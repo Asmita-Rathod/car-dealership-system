@@ -1,22 +1,63 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
+
 export default function AuthProvider({ children }) {
+
   const [user, setUser] = useState(null);
 
+
+  useEffect(() => {
+
+    const savedUser = localStorage.getItem("user");
+
+    if (savedUser && savedUser !== "undefined") {
+
+      setUser(JSON.parse(savedUser));
+
+    }
+
+  }, []);
+
+
+
   const login = (data) => {
+
     localStorage.setItem("access", data.access);
     localStorage.setItem("refresh", data.refresh);
-    setUser(data);
+
+
+    // Only save user if backend provides it
+    if (data.user) {
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      setUser(data.user);
+
+    }
+
   };
+
+
 
   const logout = () => {
-    localStorage.clear();
+
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    localStorage.removeItem("user");
+
     setUser(null);
+
   };
 
+
+
   return (
+
     <AuthContext.Provider
       value={{
         user,
@@ -24,7 +65,11 @@ export default function AuthProvider({ children }) {
         logout,
       }}
     >
+
       {children}
+
     </AuthContext.Provider>
+
   );
+
 }

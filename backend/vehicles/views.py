@@ -120,7 +120,10 @@ class PurchaseVehicleView(APIView):
 
 class RestockVehicleView(APIView):
 
-    permission_classes = [IsAdminUserRole]
+    permission_classes = [
+    IsAuthenticated,
+    IsAdminUserRole
+]
 
     def post(self, request, pk):
 
@@ -178,3 +181,24 @@ class VehicleSearchView(ListAPIView):
     filterset_fields = [
         "category",
     ]
+
+
+
+from .serializers import PurchaseSerializer
+
+class MyPurchaseHistoryView(ListAPIView):
+
+    serializer_class = PurchaseSerializer
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+
+
+    def get_queryset(self):
+
+        return Purchase.objects.filter(
+            user=self.request.user
+        ).order_by(
+            "-purchased_at"
+        )

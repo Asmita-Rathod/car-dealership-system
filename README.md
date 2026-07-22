@@ -176,9 +176,13 @@ are stored in Local Storage and used for authenticated API requests.
 
 ### Admin Dashboard
 
+#### Dashboard Overview
+
 ![Admin Dashboard](screenshots/admin_dashboard.png)
 
-![Admin Dashboard](screenshots/admin_dashboard(1).png)
+#### Vehicle Management
+
+![Vehicle Management](screenshots/admin_dashboard_2.png)
 
 ---
 

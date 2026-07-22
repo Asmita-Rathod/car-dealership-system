@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Vehicle(models.Model):
@@ -20,3 +21,21 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.make} {self.model}"
+
+class Purchase(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    vehicle = models.ForeignKey(
+        Vehicle,
+        on_delete=models.CASCADE
+    )
+
+    quantity = models.PositiveIntegerField(default=1)
+
+    purchased_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.vehicle.make} {self.vehicle.model}"

@@ -202,3 +202,33 @@ class MyPurchaseHistoryView(ListAPIView):
         ).order_by(
             "-purchased_at"
         )
+
+from django.db.models import Sum
+from .models import Vehicle, Purchase
+
+class AdminDashboardStatsView(APIView):
+
+    permission_classes = [IsAdminUserRole]
+
+    def get(self, request):
+
+        total_vehicles = Vehicle.objects.count()
+
+        total_stock = (
+            Vehicle.objects.aggregate(
+                total=Sum("quantity")
+            )["total"] or 0
+        )
+
+        total_purchases = Purchase.objects.count()
+
+        total_customers = User.objects.filter(
+            role="CUSTOMER"
+        ).count()
+
+        return Response({
+            "total_vehicles": total_vehicles,
+            "total_stock": total_stock,
+            "total_purchases": total_purchases,
+            "total_customers": total_customers,
+        })

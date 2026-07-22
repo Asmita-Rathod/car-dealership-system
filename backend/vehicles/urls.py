@@ -4,6 +4,7 @@ from .views import VehicleListCreateView, VehicleDetailView
 from .views import PurchaseVehicleView,RestockVehicleView, VehicleSearchView
 
 from .views import MyPurchaseHistoryView
+from .views import AdminDashboardStatsView
 
 urlpatterns = [
     path("", VehicleListCreateView.as_view(), name="vehicle-list"),
@@ -27,5 +28,9 @@ urlpatterns = [
     path(
     "my-purchases/",
     MyPurchaseHistoryView.as_view()
+    ),
+    path(
+    "admin/stats/",
+    AdminDashboardStatsView.as_view(),
     ),
 ]

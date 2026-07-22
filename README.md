@@ -182,7 +182,7 @@ are stored in Local Storage and used for authenticated API requests.
 
 #### Vehicle Management
 
-![Vehicle Management](screenshots/admin_dashboard_2.png)
+![Vehicle Management](screenshots/admin_dashboard(2).png)
 
 ---
 
